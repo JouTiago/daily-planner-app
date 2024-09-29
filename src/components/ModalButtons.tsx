@@ -11,7 +11,6 @@ import cronometerIcon from '../images/CronometerIcon.png';
 import kcalIcon from '../images/KcalIcon.png';
 
 
-
 interface ModalButtonsProps {
   onButtonClick: (modalName: string) => void;
 }

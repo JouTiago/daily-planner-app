@@ -46,17 +46,18 @@ body, html {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px #00ffff;
+  margin-bottom: 20px;
 }
 
 .close-btn {
   background: none;
   border: none;
   color: #00ffff;
-  font-size: 20px;
+  font-size: 30px;
   cursor: pointer;
-  float: right;
+  float: center;
+  box-shadow: 0 0 10px #00ffff;
 }
-
 
 /* Clock */
 .timer-container {
@@ -211,6 +212,10 @@ body, html {
   width: 100%;
   height: 100%;
 }
+.button-item:hover,
+.button-item-small:hover{
+  opacity: 100%;
+}
 .divider {
   width: 60%;
   border: none;
@@ -239,4 +244,75 @@ body, html {
   height: 6px;
   background-color: rgba(255, 255, 255, 0.5);
 }
-    
+
+/* Assets */
+.assets-container{
+  background-color: rgba(15, 240, 23, 0.341);
+  padding: 2%;
+}
+.self-memos {
+  width: 60%;
+  height: 380px;
+  background-color: rgba(42, 42, 43, 0.8);  
+  border-radius: 0 20px 20px 0;
+  position: relative;
+}
+
+.header {
+  font-size: 30px;
+  text-align: center;
+  padding: 5%;
+  font-weight: bold;
+  line-height: 1;  
+}
+
+/* Calendar */
+/* Calendar Container */
+.calendar-container {
+  width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+/* Calendar Header */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  color: black;
+  width: 100%;
+}
+
+
+.calendar-header button {
+  width: 100px;
+  height: 50px;
+}
+
+/* Grid Layout for Days */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 columns for days of the week */
+  gap: 10px;
+  color: black;
+}
+
+/* Individual Day Styling */
+.calendar-day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background-color: #e3e3e3;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.calendar-day:hover {
+  background-color: #d3d3d3;
+}
+

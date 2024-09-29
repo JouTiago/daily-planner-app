@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './assets/styles.css';
 import SkinCareModal from './components/modals/SkinCareModal';
+import CalendarModal from './components/modals/CalendarModal';
 import Timer from './components/Clock';
 import {ModalButtonsRight, ModalButtonsLeft} from './components/ModalButtons';
 
@@ -26,7 +27,16 @@ const App = () => {
       </div>
 
       {activeModal === 'SkinCareModal' && <SkinCareModal isOpen={true} onClose={closeModal} />}
-    
+      {activeModal === 'CalendarModal' && <CalendarModal isOpen={true} onClose={closeModal} />}
+
+      <div className='assets-container'>
+
+        <div className='self-memos'>
+          <div className="header">SELF - MEMOS</div>
+        </div>
+
+      </div>
+
     </div>
   );
 };
