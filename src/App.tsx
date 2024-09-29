@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import './assets/styles.css';
 import SkinCareModal from './components/modals/SkinCareModal';
-import Timer from './components/modals/Clock';
-import ModalButtonsRight from './components/ModalButtons';
+import Timer from './components/Clock';
+import {ModalButtonsRight, ModalButtonsLeft} from './components/ModalButtons';
 
 const App = () => {
   const [activeModal, setActiveModal] = useState<string | null>(null);
@@ -21,8 +21,7 @@ const App = () => {
       <Timer />
 
       <div className='modal-container'>
-        <div className='modal-box'>left</div>
-      
+        <ModalButtonsLeft onButtonClick={handleButtonClick} />
         <ModalButtonsRight onButtonClick={handleButtonClick} />
       </div>
 
