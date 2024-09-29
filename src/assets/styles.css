@@ -1,0 +1,123 @@
+@import './fonts.css';
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #0d0d0d;
+  color: #ffffff;
+  justify-content: center;
+}
+
+.app-container {
+  width: 1080px;
+  height: 2400px;
+  background-image: url('../images/background.png');
+  background-size: cover;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.open-modal-btn {
+  padding: 15px 30px;
+  font-size: 18px;
+  color: #0d0d0d;
+  background: #00ffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #121212;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #00ffff;
+  font-size: 20px;
+  cursor: pointer;
+  float: right;
+}
+
+
+/* Clock */
+.timer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 7%;
+  padding: 20px;
+  background-color: rgba(10, 10, 222, 0.2);
+}
+.timer-box {
+  background-color: rgba(42, 42, 43, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 360px;
+  border-radius: 50px;
+  width: 80%;
+  padding: 1.5%;   
+}
+.timer-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  gap: 3%;
+  width: 60%;
+  margin-bottom: 20px;  
+}
+.time-box {
+  text-align: center;
+  color: rgb(201, 203, 203);
+  background-color: rgb(25, 25, 26);  
+  padding: 2%;
+  border-radius: 15px;
+}
+.time-box h2 {
+  font-size: 168px;
+  margin: 0;
+  line-height: 1;
+  font-family: 'Arial', sans-serif;
+  font-weight: normal;
+}
+.time-box h3 {
+  font-size: 58px;
+  margin: 0;
+  line-height: 1;
+  font-family: 'Arial', sans-serif;
+  font-weight: normal;
+}
+.time-box p {
+  margin: 0;
+  font-size: 25px;
+  font-family: 'Copperplate Gothic Bold', Arial, sans-serif;
+}
+.dots {
+  font-size: 168px;
+  color: rgb(201, 203, 203);
+  margin: 0;
+  line-height: 1;
+  padding-bottom: 5%;
+  font-family: 'Baskerville Old Face', Arial, sans-serif;
+}
