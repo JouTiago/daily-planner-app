@@ -15,17 +15,17 @@ const Timer = () => {
         <div className="timer-display">
           <div className="time-box">
             <h2>{String(time.getHours()).padStart(2, '0')}</h2>
-            <p>HOURS</p>
+            <p>HORAS</p>
           </div>
           <p className="dots">:</p>
           <div className="time-box">
             <h2>{String(time.getMinutes()).padStart(2, '0')}</h2>
-            <p>MINUTES</p>
+            <p>MINUTOS</p>
           </div>
           <p className="dots">:</p>
           <div className="time-box">
             <h2>{String(time.getSeconds()).padStart(2, '0')}</h2>
-            <p>SECONDS</p>
+            <p>SEGUNDOS</p>
           </div>
         </div>
         <div className="time-box">

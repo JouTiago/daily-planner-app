@@ -250,14 +250,6 @@ body, html {
   background-color: rgba(15, 240, 23, 0.341);
   padding: 2%;
 }
-.self-memos {
-  width: 60%;
-  height: 380px;
-  background-color: rgba(42, 42, 43, 0.8);  
-  border-radius: 0 20px 20px 0;
-  position: relative;
-}
-
 .header {
   font-size: 30px;
   text-align: center;
@@ -265,9 +257,36 @@ body, html {
   font-weight: bold;
   line-height: 1;  
 }
+.self-memos-container {
+  width: 100%;
+  margin-top: 20px;
+}
+.self-memos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+}
+.todo-indicator {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 1.2em;
+  color: red;
+}
+.todo-list {
+  margin-top: 20px;
+}
+.todo-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+.todo-list li {
+  padding: 5px 0;
+}
+
 
 /* Calendar */
-/* Calendar Container */
 .calendar-container {
   width: 500px;
   margin: 20px auto;
@@ -276,8 +295,6 @@ body, html {
   border-radius: 10px;
   background-color: #f9f9f9;
 }
-
-/* Calendar Header */
 .calendar-header {
   display: flex;
   justify-content: space-between;
@@ -286,22 +303,16 @@ body, html {
   color: black;
   width: 100%;
 }
-
-
 .calendar-header button {
   width: 100px;
   height: 50px;
 }
-
-/* Grid Layout for Days */
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr); /* 7 columns for days of the week */
   gap: 10px;
   color: black;
 }
-
-/* Individual Day Styling */
 .calendar-day {
   display: flex;
   justify-content: center;
@@ -311,7 +322,6 @@ body, html {
   border-radius: 5px;
   cursor: pointer;
 }
-
 .calendar-day:hover {
   background-color: #d3d3d3;
 }

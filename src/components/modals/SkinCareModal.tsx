@@ -10,8 +10,8 @@ const SkinCareModal = ({ isOpen, onClose }: ModalProps) => {
     <div className="modal-overlay">
       <div className="modal-content">
         <button className="close-btn" onClick={onClose}>X</button>
-        <h2>Skin Care Routine</h2>
-        <p>Define your routine here...</p>
+        <h2>Rotina de Skin Care</h2>
+        <p>Defina sua rotina aqui</p>
       </div>
     </div>
   );

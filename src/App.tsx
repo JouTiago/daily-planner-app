@@ -3,6 +3,7 @@ import './assets/styles.css';
 import SkinCareModal from './components/modals/SkinCareModal';
 import CalendarModal from './components/modals/CalendarModal';
 import Timer from './components/Clock';
+import SelfMemos from './components/SelfMemos';
 import {ModalButtonsRight, ModalButtonsLeft} from './components/ModalButtons';
 
 const App = () => {
@@ -32,9 +33,7 @@ const App = () => {
 
       <div className='assets-container'>
 
-        <div className='self-memos'>
-          <div className="header">SELF - MEMOS</div>
-        </div>
+        <SelfMemos />
 
       </div>
 

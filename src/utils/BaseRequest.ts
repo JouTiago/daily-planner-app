@@ -42,10 +42,9 @@ export const deleteTarget = async (targetId: number): Promise<void> => {
 };
 
 export const getTodosByTarget = async (targetId: number): Promise<Todo[]> => {
-  const response = await requestBase.get(`Todo?targetId=${targetId}`);
-  return response.data;
+  const response = await requestBase.get(`Targets/${targetId}`);
+  return response.data.todo;
 };
-
 export const createTodo = async (todo: Omit<Todo, 'id'>): Promise<Todo> => {
   const response = await requestBase.post('Todo', todo);
   return response.data;
