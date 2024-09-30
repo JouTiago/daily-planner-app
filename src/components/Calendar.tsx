@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {createTarget, createTodo, getTodosByTarget, updateTarget} from '../utils/BaseRequest';
+import {createTarget, createTodo} from '../utils/BaseRequest';
 
 
 const Calendar: React.FC = () => {
@@ -74,7 +74,7 @@ const Calendar: React.FC = () => {
             }
         } catch (error: any) {            
             try {
-                               
+
                 const newTodo = {                                    
                     title,
                     description,

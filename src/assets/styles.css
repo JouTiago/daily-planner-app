@@ -255,7 +255,7 @@ body, html {
   height: 380px;
   background-color: rgba(42, 42, 43, 0.8);  
   border-radius: 0 20px 20px 0;
-  position: relative;
+  position: relative;  
 }
 
 .header {
@@ -293,15 +293,12 @@ body, html {
   height: 50px;
 }
 
-/* Grid Layout for Days */
 .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 7 columns for days of the week */
-  gap: 10px;
+  grid-template-columns: repeat(7, 1fr);
   color: black;
 }
 
-/* Individual Day Styling */
 .calendar-day {
   display: flex;
   justify-content: center;
