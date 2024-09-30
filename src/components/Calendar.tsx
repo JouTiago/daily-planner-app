@@ -9,12 +9,12 @@ const Calendar: React.FC = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     
-    const formatarID = () => {
-        const dia = currentDate.getDate().toString();
-        const mes = (currentDate.getMonth() + 1).toString();
-        const ano = currentDate.getFullYear().toString();
-        return parseInt(`${dia}${mes}${ano}`);
-    };
+    const formatID = () => {
+        if (!selectedDate) return 0;      
+        const [day, month, year] = selectedDate.split('-').map(Number); 
+        return parseInt(`${day}${month}${year}`);
+      };
+      
 
     const generateDays = () => {
         const year = currentDate.getFullYear();
@@ -47,7 +47,7 @@ const Calendar: React.FC = () => {
     const handleCreateTodo = async () => {
         if (!title || !description || !selectedDate) return;
 
-        const targetId = formatarID();
+        const targetId = formatID();
 
         const newTodo = {
             id: 0,            
@@ -98,11 +98,11 @@ const Calendar: React.FC = () => {
 return (
     <div className="calendar-container">
       <div className="calendar-header">
-        <button onClick={() => changeMonth(-1)}>&lt; Prev</button>
+        <button onClick={() => changeMonth(-1)}>&lt; Ant.</button>
         <h2>
           {currentDate.toLocaleString('default', { month: 'long' })} {currentDate.getFullYear()}
         </h2>
-        <button onClick={() => changeMonth(1)}>Next &gt;</button>
+        <button onClick={() => changeMonth(1)}>Prox.&gt;</button>
       </div>
       <div className="calendar-grid">{generateDays()}</div>
 
@@ -110,7 +110,7 @@ return (
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h2>Criar Todo para {selectedDate}</h2>
+            <h2>Criar uma nota para {selectedDate}</h2>
             <input
               type="text"
               value={title}
@@ -122,7 +122,7 @@ return (
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Descrição"
             />
-            <button onClick={handleCreateTodo}>Criar Todo</button>
+            <button onClick={handleCreateTodo}>Criar</button>
             <button onClick={() => setIsModalOpen(false)}>Fechar</button>
           </div>
         </div>
