@@ -1,164 +1,61 @@
-import axios from "axios";
-import React, {useState} from "react";
+import axios from 'axios';
+
+const baseUrl = 'https://todo-caio.azurewebsites.net/api/';
+const requestBase = axios.create({
+  baseURL: baseUrl,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
 interface Todo {
+  id: number;
+  title: string;
+  description: string;
+  isComplete: boolean;
+  targetId: number;
+}
 
-    id: number;
-    
-    title: string;
-    
-    description: string;
-    
-    isComplete: boolean;
-    
-    targetId: number;
-    
-    }
-    
-    interface Target {
-    
-    id: number;
-    
-    title: string;
-    
-    description: string;
-    
-    isComplete: boolean;
-    
-    } const baseUrl = 'https://todo-caio.azurewebsites.net/api/';
-    
-    const [target, setTargets] = useState<Target>();
-    
-    const [todo, setTodo] = useState<Todo>();
-    
-    const [todoId, setTodoId] = useState<number>(0);
-    
-    const [targetId, setTargetId] = useState<number>(0);
-    
-    
-    const requestBase = axios.create({
-    
-    baseURL: baseUrl,
-    
-    headers: {
-    
-    'Content-Type': 'application/json',
-    
-    },
-    
-    });
-    
-    
-    const getData = async () => {
-    
-    try {
-    
-    const response = await requestBase.get('Targets');
-    
-    setTargets(response.data); // Armazena os dados recebidos no estado
-    
-    } catch (error) {
-    
-    console.error('Erro na requisição:', error);
-    
-    }
-    
-    };
-    
-    const postData = async () => {
-    
-    try {
-    
-    const response = await requestBase.post('targets', {
-    
-    title: 'Demo da aula',
-    
-    description: 'Mostando como fazer um post com axios',
-    
-    isComplete: false,
-    
-    todo:[]
-    
-    });
-    
-    console.log(response.data);
-    
-    } catch (error) {
-    
-    console.error('Erro na requisição:', error)
-    
-    };
-    
-    };
-    
-    const postTodo = async () => {
-    
-    try {
-    
-    const response = await requestBase.post('Todo', {
-    
-    title: 'Primeiro',
-    
-    description: 'Montar a estrutura do request - URL e Headers',
-    
-    isComplete: false,
-    
-    targetId: 22
-    
-    });
-    
-    console.log(response.data);
-    
-    } catch (error) {
-    
-    console.error('Erro na requisição:', error)
-    
-    };
-    
-    };
-    
-    
-    const putTodo = async () => {
-    
-    try {
-    
-    const response = await requestBase.put(`Todo/${todoId}`, {
-    
-    id: todoId,
-    
-    title: 'Segundo',
-    
-    description: 'Montar a estrutura do request - URL e Headers',
-    
-    isComplete: false,
-    
-    targetId: 22
-    
-    });
-    
-    console.log(response.data);
-    
-    } catch (error) {
-    
-    console.error('Erro na requisição:', error)
-    
-    };
-    
-    };
-    
-    
-    const DeleteData = async () => {
-    
-    try {
-    
-    const response = await requestBase.delete(`todo/${todoId}`);
-    
-    setTodo(response.data); // Armazena os dados recebidos no estado
-    
-    } catch (error) {
-    
-    console.error('Erro na requisição:', error);
-    
-    }
-    
-    };
+interface Target {
+  id: number;
+  title: string;
+  description: string;
+  isComplete: boolean;
+}
+
+export const getAllTargets = async (): Promise<Target[]> => {
+  const response = await requestBase.get('Targets');
+  return response.data;
+};
+
+export const createTarget = async (target: Omit<Target, 'id'>): Promise<Target> => {
+  const response = await requestBase.post('Targets', target);
+  return response.data;
+};
+
+export const updateTarget = async (targetId: number, target: Partial<Target>): Promise<void> => {
+  await requestBase.put(`Targets/${targetId}`, target);
+};
+
+export const deleteTarget = async (targetId: number): Promise<void> => {
+  await requestBase.delete(`Targets/${targetId}`);
+};
+
+export const getTodosByTarget = async (targetId: number): Promise<Todo[]> => {
+  const response = await requestBase.get(`Todo?targetId=${targetId}`);
+  return response.data;
+};
+
+export const createTodo = async (todo: Omit<Todo, 'id'>): Promise<Todo> => {
+  const response = await requestBase.post('Todo', todo);
+  return response.data;
+};
+
+export const updateTodo = async (todoId: number, todo: Partial<Todo>): Promise<void> => {
+  await requestBase.put(`Todo/${todoId}`, todo);
+};
+
+export const deleteTodo = async (todoId: number): Promise<void> => {
+  await requestBase.delete(`Todo/${todoId}`);
+};
+

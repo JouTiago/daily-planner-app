@@ -6,6 +6,7 @@ import Timer from './components/Clock';
 import {ModalButtonsRight, ModalButtonsLeft} from './components/ModalButtons';
 
 const App = () => {
+
   const [activeModal, setActiveModal] = useState<string | null>(null);
 
   const handleButtonClick = (modalName: string) => {
