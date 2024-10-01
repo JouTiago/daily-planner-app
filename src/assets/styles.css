@@ -248,7 +248,7 @@ body, html {
 /* Assets */
 .assets-container{
   background-color: rgba(15, 240, 23, 0.341);
-  padding: 2%;
+  padding: 1%;
 }
 .header {
   font-size: 30px;
@@ -258,31 +258,82 @@ body, html {
   line-height: 1;  
 }
 .self-memos-container {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 62%;
+  background-color: rgba(42, 42, 43, 0.8);
+  height: 520px;
+  border-radius: 0 20px 20px 0;
+}
+.self-memos-container-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 80px;
+  font-size: 25px;
+  margin-left: 10%;
   margin-top: 20px;
+}
+.self-memos-container-header button {
+  background-image: url(../images/refreshIcon.png);
+  background-position: center;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  height: 40px;
+  width: 40px;
+  background-color: transparent;
+}
+.self-memos-container-header h2 {
+  margin-left: 50px;
+  line-height: 1;
+  width: 300px;
+}
+.memos-sec-container{
+  position: relative; 
+  background-image: url(../images/Camada1.png);
+  background-position:center;
+  background-repeat: no-repeat;  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 450px;
+  width: 90%;
 }
 .self-memos-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  width: 550px;
+  height: 310px;
+  margin-top: 12px;
+}
+.self-memos-day {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  border: 1px solid #ddd;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background-color: transparent;
+  cursor: pointer;
+  color: #0d0d0d;
+  margin-bottom: 15px;
+  font-size: 40px;  
 }
-.todo-indicator {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 1.2em;
-  color: red;
+.self-memos-grid .self-memos-day:nth-child(28) {
+  grid-column: 1;
+  grid-row: 5;
 }
-.todo-list {
-  margin-top: 20px;
+.self-memos-grid .self-memos-day:nth-child(29) {
+  grid-column: 2;
+  grid-row: 5;
 }
-.todo-list ul {
-  list-style-type: none;
-  padding: 0;
+.self-memos-grid .self-memos-day:nth-child(30) {
+  grid-column: 3;
+  grid-row: 5;
 }
-.todo-list li {
-  padding: 5px 0;
+.self-memos-grid .self-memos-day:nth-child(31) {
+  grid-column: 4;
+  grid-row: 5;
 }
 
 
