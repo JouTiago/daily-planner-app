@@ -8,6 +8,8 @@ const Calendar: React.FC = () => {
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+
+
     
     const formatID = () => {
         if (!selectedDate) return 0;      
@@ -15,6 +17,8 @@ const Calendar: React.FC = () => {
         return parseInt(`${day}${month}${year}`);
       };
       
+
+
 
     const generateDays = () => {
         const year = currentDate.getFullYear();
@@ -33,16 +37,21 @@ const Calendar: React.FC = () => {
         return days;
     };
 
+
+
     const handleDayClick = (day: number) => {
         const formatedDate =  `${day}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`;
         setSelectedDate(formatedDate);
         setIsModalOpen(true);
     };
 
+
+
     const changeMonth = (direction: number) => {
         const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + direction);
         setCurrentDate(newDate);           
     };
+    
 
     const handleCreateTodo = async () => {
         if (!title || !description || !selectedDate) return;

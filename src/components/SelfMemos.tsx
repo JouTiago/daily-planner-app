@@ -1,104 +1,132 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { getTodosByTarget } from '../utils/BaseRequest';
+import SelfMemosModal from './modals/SelfMemosModal';
 
 const SelfMemos: React.FC = () => {
-    const [todosByDay, setTodosByDay] = useState<{ [key: string]: { title: string; description: string }[] }>({});
-    const [selectedDayTodos, setSelectedDayTodos] = useState<{ title: string; description: string }[]>([]);
-    const [currentDate, setCurrentDate] = useState(new Date());
-    const [selectedDay, setSelectedDay] = useState<string | null>(null);
+  const [todosByDay, setTodosByDay] = useState<{ [key: string]: { title: string; description: string }[] }>({});
+  const [selectedDayTodos, setSelectedDayTodos] = useState<{ title: string; description: string }[]>([]);
+  const [currentDate] = useState(new Date());
+  const [selectedDay, setSelectedDay] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    useEffect(() => {
-        const fetchTodosForMonth = async () => {
-            try {
-                const currentMonth = currentDate.getMonth() + 1;
-                const currentYear = currentDate.getFullYear();
 
-                const groupedTodos: { [key:  string]: { title: string; description: string }[] } = {};
 
-                for (let day = 1; day <= new Date(currentYear, currentMonth, 0).getDate(); day++) {
-                    const targetId = formatID(day, currentMonth, currentYear);
-                    const todos = await getTodosByTarget(parseInt(targetId));
+  const fetchTodosForMonth = async () => {
+    try {
+      const currentMonth = currentDate.getMonth() + 1;
+      const currentYear = currentDate.getFullYear();
 
-                    if (todos.length > 0) {
-                        groupedTodos[targetId] = todos.map((todo) => ({
-                            title: todo.title,
-                            description: todo.description,
-                        }));
-                    }
-                }
+      const groupedTodos: { [key: string]: { title: string; description: string }[] } = {};
 
-                setTodosByDay(groupedTodos);
-            } catch (error) {
-                console.error('Erro ao buscar todos:', error);
-            }
-        };
-
-        fetchTodosForMonth();
-    }, [currentDate]);
-
-    const generateDays = () => {
-        const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
-        const days = [];
-
-        for (let i = 1; i <= daysInMonth; i++) {
-            const targetId = formatID(i, currentDate.getMonth() + 1, currentDate.getFullYear());
-
-            days.push(
-                <div className='calendar-day' key={targetId} onClick={() => handleDayClick(targetId)}>
-                    {i}
-                    {todosByDay[targetId] && <span className='todo-indicator'>●</span>}
-                </div>
-            );
-        }
-
-        return days;
-    };
-
-    const handleDayClick = async (day: number) => { 
-        const targetId = day;
-        setSelectedDay(targetId.toString());
-      
+      for (let day = 1; day <= new Date(currentYear, currentMonth, 0).getDate(); day++) {
+        const targetId = formatID(day, currentMonth, currentYear);
         try {
-          const todos = await getTodosByTarget(targetId);
-          if (todos && todos.length > 0) {
-            setSelectedDayTodos(todos.map((todo) => ({
+          const todos = await getTodosByTarget(parseInt(targetId));
+          if (todos.length > 0) {
+            groupedTodos[targetId] = todos.map((todo) => ({
               title: todo.title,
               description: todo.description,
-            })));
-          } else {
-            setSelectedDayTodos([]);
+            }));
           }
         } catch (error) {
-          setSelectedDayTodos([]);
-          console.error('Erro ao buscar todos:', error);
+          console.error(`Erro ao buscar todos para Target ID: ${targetId}`, error);
         }
-      };
+      }
 
-    const formatID = (day: number, month: number, year: number) => {
-        return `${day}${month}${year}`;      
-    };   
+      setTodosByDay(groupedTodos);
+    } catch (error) {
+      console.error('Erro ao buscar todos:', error);
+    }
+  };
 
-    return (
-        <div className="self-memos-container">
-          <h2>Self Memos - {currentDate.toLocaleString('default', { month: 'long' })} {currentDate.getFullYear()}</h2>
-          <div className="self-memos-grid">
-            {generateDays()}
-          </div>
-    
-          {selectedDay !== null && (
-            <div className="todo-list">
-              <h3>Todos para o dia {selectedDay}</h3>
-              <ul>
-                {selectedDayTodos.map((todo, index) => (
-                  <li key={index}>
-                    <strong>{todo.title}</strong>: {todo.description}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
+  useEffect(() => {
+    fetchTodosForMonth();
+  }, [currentDate]);
+
+
+  const handleRefresh = () => {
+    fetchTodosForMonth();
+  };
+
+
+  const generateDays = () => {
+    const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+    const days = [];
+
+    for (let i = 1; i <= daysInMonth; i++) {
+      const targetId = formatID(i, currentDate.getMonth() + 1, currentDate.getFullYear());
+
+      days.push(
+        <div
+            className='self-memos-day'
+            key={targetId}
+            onClick={() => handleDayClick(i)}
+            style={{
+            color: todosByDay[targetId] && todosByDay[targetId].length > 0 ? 'rgba(0, 0, 0, 1)' : 'rgba(0, 0, 0, 0.1)',
+            }}
+            >
+            {i}
+      </div>
+
       );
-    };
-    
-    export default SelfMemos;
+    }
+
+    return days;
+  };
+
+
+
+  const handleDayClick = async (day: number) => {
+    const targetId = formatID(day, currentDate.getMonth() + 1, currentDate.getFullYear());
+    setSelectedDay(targetId);
+    setIsModalOpen(true);
+
+    try {
+      const todos = await getTodosByTarget(parseInt(targetId));
+      if (todos && todos.length > 0) {
+        setSelectedDayTodos(
+          todos.map((todo) => ({
+            title: todo.title,
+            description: todo.description,
+          }))
+        );
+      } else {
+        setSelectedDayTodos([]);
+      }
+    } catch (error) {
+      setSelectedDayTodos([]);
+      console.error('Erro ao buscar todos:', error);
+    }
+  };
+
+
+
+  const formatID = (day: number, month: number, year: number) => {
+    return `${day}${month}${year}`;
+  };
+
+ 
+
+  return (
+    <div className="self-memos-container">
+        
+        <div className='self-memos-container-header'>
+            <h2>SELF - MEMOS</h2>
+            <button onClick={handleRefresh}></button>
+        </div>
+      
+        <div className='memos-sec-container'>
+            <div className="self-memos-grid">{generateDays()}</div>   
+        </div>
+
+      <SelfMemosModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        todos={selectedDayTodos}
+        selectedDay={selectedDay}
+      />
+    </div>
+  );
+};
+
+export default SelfMemos;
