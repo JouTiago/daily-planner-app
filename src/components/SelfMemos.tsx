@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getTodosByTarget } from '../utils/BaseRequest';
+import { getTodosByTarget, getAllTargets } from '../utils/BaseRequest';
 import SelfMemosModal from './modals/SelfMemosModal';
 
 const SelfMemos: React.FC = () => {
@@ -15,24 +15,25 @@ const SelfMemos: React.FC = () => {
     try {
       const currentMonth = currentDate.getMonth() + 1;
       const currentYear = currentDate.getFullYear();
-
+  
       const groupedTodos: { [key: string]: { title: string; description: string }[] } = {};
-
-      for (let day = 1; day <= new Date(currentYear, currentMonth, 0).getDate(); day++) {
-        const targetId = formatID(day, currentMonth, currentYear);
-        try {
-          const todos = await getTodosByTarget(parseInt(targetId));
-          if (todos.length > 0) {
-            groupedTodos[targetId] = todos.map((todo) => ({
-              title: todo.title,
-              description: todo.description,
-            }));
-          }
-        } catch (error) {
-          console.error(`Erro ao buscar todos para Target ID: ${targetId}`, error);
+  
+      const allTargets = await getAllTargets();
+      const filteredTargets = allTargets.filter((target) => {
+        const targetMonthYear = target.id.toString().slice(-6);
+        return targetMonthYear === `${currentMonth}${currentYear}`;
+      });
+  
+      for (const target of filteredTargets) {
+        const todos = await getTodosByTarget(target.id);
+        if (todos.length > 0) {
+          groupedTodos[target.id.toString()] = todos.map((todo) => ({
+            title: todo.title,
+            description: todo.description,
+          }));
         }
       }
-
+  
       setTodosByDay(groupedTodos);
     } catch (error) {
       console.error('Erro ao buscar todos:', error);
