@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getTodosByTarget, deleteTodo, deleteTarget } from '../utils/BaseRequest';
+import { getTodosByTarget, deleteTodo, deleteTarget, getTodoById } from '../utils/BaseRequest';
+import TodoDetail from './modals/TodoDetail';
 
 interface Todo {
   id: number;
@@ -11,7 +12,9 @@ interface Todo {
 
 const TopPriority: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentDate] = useState(new Date());
+  const [selectedTodos, setSelectedTodos] = useState<{ [key: number]: Todo | null }>({});
+  const [modalOpenStatus, setModalOpenStatus] = useState<{ [key: number]: boolean }>({});
 
   const formatID = () => {
     const day = currentDate.getDate().toString();
@@ -26,7 +29,7 @@ const TopPriority: React.FC = () => {
       const todosForToday = await getTodosByTarget(targetId);
       setTodos(todosForToday);
     } catch (error) {
-      console.error('Error fetching todos for the current day:', error);
+      console.error('Erro ao buscar todos para hoje:', error);
     }
   };
 
@@ -34,19 +37,32 @@ const TopPriority: React.FC = () => {
     fetchTodosForCurrentDay();
   }, [currentDate]);
 
-  // Function to mark a todo as done and delete it
   const handleDeleteTodo = async (todoId: number) => {
     try {
       await deleteTodo(todoId);
       setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== todoId));
 
-      // If all todos for the day are marked as done, delete the target
       if (todos.length === 1) {
         await deleteTarget(formatID());
       }
     } catch (error) {
-      console.error('Error deleting todo:', error);
+      console.error('Erro ao deletar todo:', error);
     }
+  };
+
+  const handleShowTodoDetails = async (todoId: number) => {
+    try {
+      const todoDetails = await getTodoById(todoId);
+      setSelectedTodos((prev) => ({ ...prev, [todoId]: todoDetails }));
+      setModalOpenStatus((prev) => ({ ...prev, [todoId]: true }));
+    } catch (error) {
+      console.error('Erro ao pegar detalhes do todo:', error);
+    }
+  };
+
+  const handleCloseTodoDetailModal = (todoId: number) => {
+    setModalOpenStatus((prev) => ({ ...prev, [todoId]: false }));
+    setSelectedTodos((prev) => ({ ...prev, [todoId]: null }));
   };
 
   return (
@@ -55,15 +71,25 @@ const TopPriority: React.FC = () => {
       <div className="todo-list">
         {todos.length > 0 ? (
           todos.map((todo) => (
-            <div className="todo-item">
-              <div className='todo-title'>
-                <strong>{todo.title}</strong>
-              </div>
-              <button className="mark-done-btn" onClick={() => handleDeleteTodo(todo.id)}>✓</button>
+            <div className="todo-item" key={todo.id}>
+
+                <div className='todo-container-title'>
+                    <div className="todo-title" onClick={() => handleShowTodoDetails(todo.id)} style={{ cursor: 'pointer' }}>
+                    <strong>{todo.title}</strong>
+                    </div>
+                    <button className="mark-done-btn" onClick={() => handleDeleteTodo(todo.id)}>✓</button>
+                </div>              
+
+              <TodoDetail
+                isOpen={modalOpenStatus[todo.id] || false}
+                onClose={() => handleCloseTodoDetailModal(todo.id)}
+                todo={selectedTodos[todo.id]}
+              />
+
             </div>
           ))
         ) : (
-          <p>No todos for today!</p>
+          <p>HOJE TA DE BOA, VAI PESCAR</p>
         )}
       </div>
     </div>

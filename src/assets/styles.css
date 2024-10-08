@@ -382,7 +382,7 @@ body, html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 290px;
+  height: 330px;
   width: 40%;
   border-radius: 30px;
   align-self: flex-start;
@@ -396,7 +396,7 @@ body, html {
 .todo-list{
   background-color: white;
   width: 95%;
-  height: 70%;
+  height: 73%;
   border-radius: 0px 0px 30px 30px;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -413,7 +413,18 @@ body, html {
   justify-content: space-between;
   align-items: center;
   border-radius: 40px;
-  padding: 10px;  
+  padding: 10px;
+  flex-direction: column;
+}
+.todo-container-title{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.todo-list p {
+  color: black;
+  font-size: 30px;
 }
 .mark-done-btn {
   width: 30px;

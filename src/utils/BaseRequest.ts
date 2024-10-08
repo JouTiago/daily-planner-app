@@ -58,3 +58,7 @@ export const deleteTodo = async (todoId: number): Promise<void> => {
   await requestBase.delete(`Todo/${todoId}`);
 };
 
+export const getTodoById = async (todoId: number): Promise<Todo> => {
+  const response = await requestBase.get(`Todo/${todoId}`);
+  return response.data;
+};
