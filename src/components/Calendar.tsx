@@ -77,8 +77,7 @@ const Calendar: React.FC = () => {
         try {
             const response = await createTarget(newTarget);
 
-            if (response) {
-                alert('Criou essa merda');
+            if (response) {                
                 console.log(targetId);               
             }
         } catch (error: any) {            

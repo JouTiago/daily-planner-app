@@ -66,7 +66,6 @@ body, html {
   align-items: center;
   margin-top: 7%;
   padding: 20px;
-  background-color: rgba(10, 10, 222, 0.2);
 }
 .timer-box {
   background-color: rgba(42, 42, 43, 0.8);
@@ -129,7 +128,6 @@ body, html {
   align-items: center;
   justify-content: space-between;  
   padding: 20px;
-  background-color: rgba(222, 10, 10, 0.2);
 }
 .modal-box {
   background-color: rgba(42, 42, 43, 0.8);
@@ -197,7 +195,7 @@ body, html {
 .button-item {
   width: 142px;      
   cursor: pointer;
-  opacity: 0.5;
+  opacity: 0.8;
 }
 .button-item img {
   width: 100%;
@@ -206,7 +204,7 @@ body, html {
 .button-item-small {
   width: 77px;      
   cursor: pointer;
-  opacity: 0.5;
+  opacity: 0.8;
 }
 .button-item-small img {
   width: 100%;
@@ -377,3 +375,68 @@ body, html {
   background-color: #d3d3d3;
 }
 
+/* Top-Priority */
+.top-priority-container{
+  background-color: rgba(42, 42, 43, 0.8);
+  content: '';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 330px;
+  width: 40%;
+  border-radius: 30px;
+  align-self: flex-start;
+  padding-bottom: 0;
+}
+.top-priority-container h2 {
+  line-height: 0;
+  margin-top: 10%;
+  font-size: 35px;
+}
+.todo-list{
+  background-color: white;
+  width: 95%;
+  height: 73%;
+  border-radius: 0px 0px 30px 30px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 5px;
+}
+.todo-item{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: white;
+  background-color: rgb(67, 67, 70);
+  font-size: 29px;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 40px;
+  padding: 10px;
+  flex-direction: column;
+}
+.todo-container-title{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.todo-list p {
+  color: black;
+  font-size: 30px;
+}
+.mark-done-btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background-color: white;
+  margin-right: 20px;
+  color: black;
+}
+.todo-title {
+  margin-left: 30px;
+}
