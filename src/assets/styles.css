@@ -358,7 +358,7 @@ body, html {
 }
 .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 7 columns for days of the week */
+  grid-template-columns: repeat(7, 1fr);
   gap: 10px;
   color: black;
 }

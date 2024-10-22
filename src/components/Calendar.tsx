@@ -15,7 +15,7 @@ const Calendar: React.FC = () => {
         if (!selectedDate) return 0;      
         const [day, month, year] = selectedDate.split('-').map(Number); 
         return parseInt(`${day}${month}${year}`);
-      };
+      }; 
       
 
 
